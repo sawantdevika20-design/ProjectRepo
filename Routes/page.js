@@ -11,47 +11,33 @@ router.get("/02_register", (req, res) => {
 });
 
 router.get("/03_Customer", (req, res) => {
-  const Phone_Number = req.query.Phone_Number;
-  if (!Phone_Number) {
+  const phone = req.query.phone;
+  if (!phone) {
     return res.render("03_Customer", { message: "No phone number provided." });
   }
 
   db.query(
     "SELECT * FROM customers WHERE Phone_Number = ?",
-    [Phone_Number],
+    [phone],
     (err, results) => {
       if (err || results.length === 0) {
         return res.render("03_Customer", { message: "Customer not found." });
       }
 
-      const customers = results[0];
+      const customer = results[0];
       res.render("03_Customer", {
-        Name: customers.Name,
-        Phone_Number: customers.Phone_Number,
-        HouseNo: customers.HouseNo,
-        Building_Name: customers.Building_Name,
-        Street: customers.Street,
-        Landmark: customers.Landmark,
-        City: customers.City,
-        State: customers.State,
-        Pincode: customers.Pincode,
+        Name: customer.Name,
+        Phone_Number: customer.Phone_Number,
+        HouseNo: customer.HouseNo,
+        Building_Name: customer.Building_Name,
+        Street: customer.Street,
+        Landmark: customer.Landmark,
+        City: customer.City,
+        State: customer.State,
+        Pincode: customer.Pincode,
       });
     }
   );
-});
-
-router.get("/edit-profile", (req, res) => {
-  res.render("edit-profile", {
-    Name: customers.Name,
-    Phone_Number: customers.Phone_Number,
-    HouseNo: customers.HouseNo,
-    Building_Name: customers.Building_Name,
-    Street: customers.Street,
-    Landmark: customers.Landmark,
-    City: customers.City,
-    State: customers.State,
-    Pincode: customers.Pincode,
-  });
 });
 
 router.get("/logout", (req, res) => {

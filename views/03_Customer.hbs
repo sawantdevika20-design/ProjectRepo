@@ -25,15 +25,15 @@
         <span class="brand-name">Jewelicious</span>
       </div>
       <div class="nav-right">
-        <a href="/logout" class="btn btn-danger"><i
-            class="fas fa-sign-out-alt"
-          ></i></a>
+        <a href="/" title="Home"><i class="fas fa-home"></i></a>
+        <a href="/logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></a>
         <a href="#cart" title="Cart"><i class="fas fa-shopping-cart"></i></a>
       </div>
     </nav>
 
-        <h2 class="text-primary mb-4">Hello, {{Name}}!</h2>
-        <p class="lead">Welcome to your profile.</p>
+   <h2 class="text-primary mb-4" style="font-family: 'Times New Roman', Times, serif; 
+   font-weight: bold; color: #5b5247;">Hello, {{Name}}!</h2>
+        <p class="lead" style="font-family: 'Times New Roman', Times, serif; color: #5b5247;">Welcome to your profile.</p>
 
         <ul class="list-group mb-4">
           <li class="list-group-item">
@@ -55,15 +55,6 @@
           </li>
         </ul>
 
-        <div class="d-flex gap-2">
-          <a
-            href="/edit-profile?name={{Name}}&phone={{Phone_Number}}&house={{HouseNo}}&building={{Building_Name}}&street={{Street}}&landmark={{Landmark}}&city={{City}}&state={{State}}&pincode={{Pincode}}"
-            class="btn btn-outline-primary"
-          >
-            <i class="fas fa-user-edit"></i>
-            Edit Profile
-          </a>
-        </div>
       </div>
     </div>
 

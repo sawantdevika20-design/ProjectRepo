@@ -68,22 +68,3 @@ exports.register = (req, res) => {
     }
   );
 };
-
-exports.updateProfile = (req, res) => {
-  const { Phone_Number, Name, City, State, Street } = req.body;
-
-  db.query(
-    "UPDATE customers SET Name = ?, City = ?, State = ?, Street = ? WHERE Phone_Number = ?",
-    [Name, City, State, Street, Phone_Number],
-    (error, results) => {
-      if (error) {
-        console.log(error);
-        return res.render("edit-profile", {
-          message: "Update failed. Try again.",
-        });
-      }
-
-      return res.redirect(`/03_Customer?phone=${Phone_Number}`);
-    }
-  );
-};

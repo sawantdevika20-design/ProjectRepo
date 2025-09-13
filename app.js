@@ -14,8 +14,8 @@ app.use(express.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use("/", require("./Routes/page"));
-app.use("/auth", require("./Routes/auth"));
+const authRouter = require("./Routes/auth");
+app.use("/auth", authRouter);
 
 const PORT = process.env.PORT || 5000;
 
