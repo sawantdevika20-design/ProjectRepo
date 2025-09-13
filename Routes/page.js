@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("../Config/db");
 const router = express.Router();
 
-router.get("/", (req, res) => {
+router.get("/01_page", (req, res) => {
   res.render("01_page");
 });
 
