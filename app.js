@@ -14,6 +14,9 @@ app.use(express.json());
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "views"));
 
+const pageRouter = require("./Routes/page");
+app.use("/", pageRouter);
+
 const authRouter = require("./Routes/auth");
 app.use("/auth", authRouter);
 
