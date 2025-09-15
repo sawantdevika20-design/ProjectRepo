@@ -2,14 +2,13 @@ const express = require("express");
 const db = require("../Config/db");
 const router = express.Router();
 
-router.get("/01_page", (req, res) => {
-  res.render("01_page");
-});
-
 router.get("/02_register", (req, res) => {
   res.render("02_register");
 });
 
+router.get("/01_page", (req, res) => {
+  res.redirect("01_page");
+});
 router.get("/03_Customer", (req, res) => {
   const phone = req.query.phone;
   if (!phone) {
