@@ -1,104 +1,84 @@
 const db = require("../Config/db");
-const bcrypt = require("bcryptjs");
-
-exports.register = (req, res) => {
-  const {
-    Name,
-    Phone_Number,
-    HouseNo,
-    Building_Name,
-    Street,
-    City,
-    State,
-    Pincode,
-    Landmark,
-    Password,
-    CnfPassword,
-  } = req.body;
-
-  db.query(
-    "SELECT Phone_Number FROM customers WHERE Phone_Number = ?",
-    [Phone_Number],
-    async (error, results) => {
-      if (error) {
-        console.log(error);
-        return res.render("02_register", {
-          message: "Database error. Please try again.",
-        });
-      }
-
-      if (results.length > 0) {
-        return res.render("03_Customer", {
-          message: "That Phone Number is already registered",
-        });
-      } else if (Password !== CnfPassword) {
-        return res.render("02_register", {
-          message: "Passwords do not match",
-        });
-      }
-
-      let hashedPassword = await bcrypt.hash(Password, 8);
-
-      db.query(
-        "INSERT INTO customers SET ?",
-        {
-          Name,
-          Phone_Number,
-          HouseNo,
-          Building_Name,
-          Street,
-          City,
-          State,
-          Pincode,
-          Landmark,
-          Password: hashedPassword,
-        },
-        (error, results) => {
-          if (error) {
-            console.log(error);
-            return res.render("02_register", {
-              message: "Registration failed. Try again.",
-            });
-          } else {
-            console.log("✅ Registered!", results);
-            return res.redirect(`/03_Customer?Phone_Number=${Phone_Number}`);
-          }
-        }
-      );
-    }
-  );
-};
 
 exports.login = (req, res) => {
   const { Phone_Number, Password } = req.body;
 
   if (!Phone_Number || !Password) {
-    return res.render("04_Login", { message: "Please enter both fields" });
+    return res.render("04_Login", { message: "Please fill all fields." });
   }
 
   db.query(
-    "SELECT * FROM customers WHERE Phone_Number = ?",
-    [Phone_Number],
-    async (error, results) => {
-      if (error) {
-        console.log(error);
-        return res.render("04_Login", { message: "Database error" });
+    "SELECT * FROM customers WHERE Phone_Number = ? AND Password = ?",
+    [Phone_Number, Password],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.render("04_Login", { message: "Something went wrong." });
       }
 
-      if (results.length === 0) {
-        return res.render("04_Login", {
-          message: "Phone number not registered",
+      if (results.length > 0) {
+        // Save customer in session
+        req.session.customer = {
+          id: results[0].Customer_ID,
+          name: results[0].Name,
+          phone: results[0].Phone_Number,
+        };
+
+        // Login successful → redirect to profile with phone query
+        res.redirect(`/03_Customer?Phone_Number=${Phone_Number}`);
+      } else {
+        res.render("04_Login", {
+          message: "Invalid phone number or password.",
+        });
+      }
+    }
+  );
+};
+
+exports.register = (req, res) => {
+  const {
+    Name,
+    Phone_Number,
+    Password,
+    HouseNo,
+    Building_Name,
+    Street,
+    Landmark,
+    City,
+    State,
+    Pincode,
+  } = req.body;
+
+  // Simple validation
+  if (!Name || !Phone_Number || !Password) {
+    return res.render("02_register", {
+      message: "Please fill all required fields.",
+    });
+  }
+
+  db.query(
+    "INSERT INTO customers (Name, Phone_Number, Password, HouseNo, Building_Name, Street, Landmark, City, State, Pincode) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [
+      Name,
+      Phone_Number,
+      Password,
+      HouseNo,
+      Building_Name,
+      Street,
+      Landmark,
+      City,
+      State,
+      Pincode,
+    ],
+    (err, results) => {
+      if (err) {
+        console.log(err);
+        return res.render("02_register", {
+          message: "Registration failed. Try again.",
         });
       }
 
-      const customer = results[0];
-      const isMatch = await bcrypt.compare(Password, customer.Password);
-
-      if (!isMatch) {
-        return res.render("04_Login", { message: "Invalid credentials" });
-      }
-
-      res.redirect(`/03_Customer?Phone_Number=${customer.Phone_Number}`);
+      res.redirect("/04_Login");
     }
   );
 };

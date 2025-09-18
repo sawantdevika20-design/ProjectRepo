@@ -12,7 +12,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
 
@@ -30,39 +30,47 @@
       </div>
     </nav>
 
-    <div class="backdrop">
-      <h2
-        style="font-family: 'Times New Roman', Times, serif; font-weight: bold; color: #5b5247;"
+    <div class="backdrop d-flex justify-content-center align-items-center">
+      <div
+        class="card p-4 shadow-lg rounded-4"
+        style="max-width: 800px; width: 100%;"
       >
-        Hello,
-        {{Name}}!
-      </h2>
-      <p
-        class="lead"
-        style="font-family: 'Times New Roman', Times, serif; color: #5b5247;"
-      >
-        Welcome to your profile.
-      </p>
+        <h2
+          style="font-family: 'Times New Roman', Times, serif; font-weight: bold; color: #5b5247;"
+        >
+          Hello,
+          {{Name}}!
+        </h2>
+        <p
+          class="lead"
+          style="font-family: 'Times New Roman', Times, serif; color: #5b5247;"
+        >
+          Welcome to your profile.
+        </p>
 
-      <ul class="list-group mb-4">
-        <li class="list-group-item">
-          <i class="fas fa-phone me-2"></i>
-          <strong>Phone:</strong>
-          {{Phone_Number}}
-        </li>
-        <li class="list-group-item">
-          <i class="fas fa-map-marker-alt me-2"></i>
-          <strong>Address:</strong><br />
-          {{HouseNo}},
-          {{Building_Name}},
-          {{Street}},
-          {{Landmark}},<br />
-          {{City}},
-          {{State}}
-          -
-          {{Pincode}}
-        </li>
-      </ul>
+        <ul class="list-group mb-4">
+          <li class="list-group-item">
+            <i class="fas fa-phone me-2"></i>
+            <strong>Phone:</strong>
+            {{Phone_Number}}
+          </li>
+          <li class="list-group-item">
+            <i class="fas fa-map-marker-alt me-2"></i>
+            <strong>Address:</strong>
+              {{HouseNo}},
+              {{Building_Name}},
+              {{Street}},
+              {{Landmark}},
+              {{City}},
+              {{State}}
+              -
+              {{Pincode}}
+            </p>
+          </li>
+        </ul>
+        <a href="/03_Customer/edit?Phone_Number={{Phone_Number}}" style="padding:10px;background-color: #5b5247 ; color:azure">
+  <i class="fas fa-edit"></i>Edit Profile!</a>
+      </div>
     </div>
 
     <script
