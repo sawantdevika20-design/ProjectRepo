@@ -34,14 +34,27 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <i class="fas fa-user"></i></a>
+          <i class="fas fa-user"></i>
+        </a>
         <ul
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="profileDropdown"
         >
-          <li><a class="dropdown-item" href="/02_register">Register</a></li>
-          <li><a class="dropdown-item" href="/04_login">Login</a></li>
-          <li><a class="dropdown-item" href="/03_Customer"> Profile</a></li>
+
+          {{#if user}}
+            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+            <li><a class="dropdown-item" href="/orders">My Orders</a></li>
+
+            {{#if isAdmin}}
+              <li><a class="dropdown-item" href="/admin/dashboard">
+                  Dashboard</a></li>
+            {{/if}}
+
+          {{else}}
+            <li><a class="dropdown-item" href="/02_register">Register</a></li>
+            <li><a class="dropdown-item" href="/04_login">Login</a></li>
+          {{/if}}
+
         </ul>
       </div>
     </nav>
@@ -202,5 +215,5 @@
       crossorigin="anonymous"
     ></script>
   </body>
-  
+
 </html>
