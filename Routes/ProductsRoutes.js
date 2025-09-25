@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../Config/db");
+const pool = require("../Config/db");
 const multer = require("multer");
 const isAdmin = require("../middleware/Check_Admin");
 

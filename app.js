@@ -4,14 +4,14 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 const mysql = require("mysql2/promise");
 const dotenv = require("dotenv");
+const pool = require("./Config/db");
+const sessionStore = new MySQLStore({}, pool);
 
 // Load env file (default .env, or .env.prod if NODE_ENV=production)
 const envFile = process.env.NODE_ENV === "production" ? ".env.prod" : ".env";
 dotenv.config({ path: envFile });
 
 const app = express();
-
-const pool = require("./Config/db");
 
 // MySQL pool (shared for app + session store)
 // const pool = mysql.createPool({
@@ -27,8 +27,6 @@ const pool = require("./Config/db");
 //   // connectionLimit: 5,
 //   // queueLimit: 0,
 // });
-
-const sessionStore = new MySQLStore({}, pool);
 
 app.use(
   session({
@@ -47,6 +45,7 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/Uploads")));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
