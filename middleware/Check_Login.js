@@ -4,7 +4,7 @@ function isLoggedIn(req, res, next) {
     return next(); // ✅ Continue to the requested route
   } else {
     // ❌ If not logged in, redirect to login page
-    return res.redirect("/auth/04_Login");
+    return res.redirect("/views/04_Login");
   }
 }
 

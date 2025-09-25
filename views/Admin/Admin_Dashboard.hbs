@@ -24,7 +24,7 @@
       </div>
       <div class="nav-right">
         <a href="/" title="Home"><i class="fas fa-home"></i></a>
-        <a href="/admin/logout"><i class="fas fa-sign-out-alt"></i></a>
+       <a href="/logout"><i class="fas fa-sign-out-alt"></i></a>
       </div>
     </nav>
 
@@ -36,26 +36,24 @@
         <h2
           style="font-family: 'Times New Roman', Times, serif; font-weight: bold; color: #5b5247;"
         >
-          Welcome Admin!
+          Welcome Aparna!
         </h2>
-        <p>
-          <ul class="list-group mb-4">
-            <li class="list-group-item">
-              <i class="fas fa-edit"></i>
-              <a href="/admin/products">Manage Products</a>
-            </li>
-            <li class="list-group-item">
-              <i class="bi bi-eye"></i>
-              <a href="/admin/orders">View Orders</a>
-            </li>
-            <li>
-              <i class="bi bi-eye"></i>
-              <a href="/admin/customers">View Customers</a>
-            </li>
-          </ul>
-        </p>
-      </div>
-    </div>
+       <div class="list-group">
+    <a href="/Admin/Products" class="list-group-item list-group-item-action d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-edit me-3 fa-lg" style="color: #5b5247;"></i>
+        <span class="fw-bold">Manage Products</span>
+    </a>
+    
+    <a href="/admin/orders" class="list-group-item list-group-item-action d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-eye me-3 fa-lg" style="color: #5b5247;"></i>
+        <span class="fw-bold">View Orders</span>
+    </a>
+    
+    <a href="/admin/customers" class="list-group-item list-group-item-action d-flex align-items-center text-dark text-decoration-none">
+        <i class="fas fa-users me-3 fa-lg" style="color: #5b5247;"></i>
+        <span class="fw-bold">View Customers</span>
+    </a>
+</div>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

@@ -64,6 +64,8 @@ a:active {
 
 .container {
   position: relative;
+  width: 100%;
+  margin-bottom: 15px;
 }
 
 .image {
@@ -80,7 +82,10 @@ a:active {
   align-items: center;
   opacity: 0;
   transition: 0.5s ease;
-  background-color: rgba(255, 192, 203, 0.7);
+  background-color: #5b5247;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
 }
 
 .container:hover .overlay {
@@ -107,8 +112,7 @@ a:active {
 }
 
 button {
-  background-color: coral;
-  border: 2px solid pink;
+  background-color: #5b5247;
   padding: 10px;
   cursor: pointer;
   font-size: 16px;
@@ -116,8 +120,7 @@ button {
 }
 
 button:hover {
-  background-color: maroon;
-  opacity: 90%;
+  transform: scale(1.1);
 }
 
 nav {

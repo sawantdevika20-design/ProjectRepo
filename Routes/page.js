@@ -4,17 +4,24 @@ const { isLoggedIn } = require("../middleware/Check_Login");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.render("01_page");
+  res.render("01_page", {
+    customer: req.session.customer || null,
+  });
 });
 
 router.get("/02_register", (req, res) => {
-  res.render("02_register");
+  res.render("02_register", {
+    customer: req.session.customer || null,
+  });
 });
 
 router.get("/03_Customer", isLoggedIn, (req, res) => {
   const phone = req.session.customer.phone;
   if (!phone) {
-    return res.render("03_Customer", { message: "No phone number provided." });
+    return res.render("03_Customer", {
+      message: "No phone number provided.",
+      customer: req.session.customer,
+    });
   }
 
   db.query(
@@ -22,7 +29,10 @@ router.get("/03_Customer", isLoggedIn, (req, res) => {
     [phone],
     (err, results) => {
       if (err || results.length === 0) {
-        return res.render("03_Customer", { message: "Customer not found." });
+        return res.render("03_Customer", {
+          message: "Customer not found.",
+          customer: req.session.customer,
+        });
       }
 
       const customer = results[0];
@@ -36,6 +46,7 @@ router.get("/03_Customer", isLoggedIn, (req, res) => {
         City: customer.City,
         State: customer.State,
         Pincode: customer.Pincode,
+        customer: req.session.customer,
       });
     }
   );
@@ -46,7 +57,9 @@ router.get("/cart", isLoggedIn, (req, res) => {
 });
 
 router.get("/04_login", (req, res) => {
-  res.render("04_Login");
+  res.render("04_Login", {
+    customer: req.session.customer || null,
+  });
 });
 
 router.get("/03_Customer/edit", (req, res) => {
@@ -55,6 +68,7 @@ router.get("/03_Customer/edit", (req, res) => {
   if (!phone) {
     return res.render("05_Edit", {
       message: "No phone number provided.",
+      customer: req.session.customer || null,
     });
   }
 
@@ -65,6 +79,7 @@ router.get("/03_Customer/edit", (req, res) => {
       if (err || results.length === 0) {
         return res.render("05_Edit", {
           message: "Customer not found.",
+          customer: req.session.customer || null,
         });
       }
 
@@ -79,6 +94,7 @@ router.get("/03_Customer/edit", (req, res) => {
         City: customer.City,
         State: customer.State,
         Pincode: customer.Pincode,
+        customer: req.session.customer || null,
       });
     }
   );
@@ -127,6 +143,7 @@ router.post("/03_Customer/edit", (req, res) => {
         console.log("Update error:", err);
         return res.render("05_Edit", {
           message: "Failed to update profile.",
+          customer: req.session.customer || null,
         });
       }
 
@@ -136,7 +153,12 @@ router.post("/03_Customer/edit", (req, res) => {
 });
 
 router.get("/logout", (req, res) => {
-  res.redirect("/");
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("Customer logout error:", err);
+    }
+    res.redirect("/");
+  });
 });
 
 module.exports = router;

@@ -9,4 +9,13 @@ router.get("/04_Login", (req, res) => {
 });
 router.post("/Login", authController.login);
 
+// router.get("/logout", (req, res) => {
+//   req.session.destroy((err) => {
+//     if (err) {
+//       console.log("Customer logout error:", err);
+//     }
+//     res.redirect("/");
+//   });
+// });
+
 module.exports = router;
